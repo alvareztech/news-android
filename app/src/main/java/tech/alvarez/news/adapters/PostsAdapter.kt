@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_post.view.*
 import tech.alvarez.news.R
+import tech.alvarez.news.formatTimeDefaults
 import tech.alvarez.news.inflate
 import tech.alvarez.news.loadUrl
 import tech.alvarez.news.models.Post
@@ -29,6 +30,7 @@ class ItemsAdapter(val items: MutableList<Post>) : RecyclerView.Adapter<ItemsAda
             photoImageView.loadUrl(post.image)
             titleTextView.text = post.title
             summaryTextView.text = post.summary
+            dateTextView.text = post.date.formatTimeDefaults()
         }
     }
 
