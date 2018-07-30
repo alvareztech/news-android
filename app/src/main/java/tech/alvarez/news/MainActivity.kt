@@ -5,12 +5,11 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.widget.LinearLayout
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_main.*
 import tech.alvarez.news.adapters.ItemsAdapter
 import tech.alvarez.news.models.Post
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,6 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getData() {
         db.collection("posts")
+                .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
