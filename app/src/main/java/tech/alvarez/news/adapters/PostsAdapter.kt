@@ -10,13 +10,13 @@ import tech.alvarez.news.inflate
 import tech.alvarez.news.loadUrl
 import tech.alvarez.news.models.Post
 
-class ItemsAdapter(val items: MutableList<Post>) : RecyclerView.Adapter<ItemsAdapter.PostViewHolder>() {
+class ItemsAdapter(val items: MutableList<Post>, val listener: (Post) -> Unit) : RecyclerView.Adapter<ItemsAdapter.PostViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = PostViewHolder(parent.inflate(R.layout.item_post))
 
     override fun getItemCount() = items.size
 
-    override fun onBindViewHolder(holder: PostViewHolder, position: Int) = holder.bind(items[position])
+    override fun onBindViewHolder(holder: PostViewHolder, position: Int) = holder.bind(items[position], listener)
 
     fun clear() {
         items.clear()
@@ -26,11 +26,12 @@ class ItemsAdapter(val items: MutableList<Post>) : RecyclerView.Adapter<ItemsAda
 
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(post: Post) = with(itemView) {
+        fun bind(post: Post, listener: (Post) -> Unit) = with(itemView) {
             photoImageView.loadUrl(post.image)
             titleTextView.text = post.title
             summaryTextView.text = post.summary
             dateTextView.text = post.date.formatTimeDefaults()
+            setOnClickListener { listener(post) }
         }
     }
 

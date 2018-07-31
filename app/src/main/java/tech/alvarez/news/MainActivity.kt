@@ -1,7 +1,10 @@
 package tech.alvarez.news
 
+import android.net.Uri
 import android.os.Bundle
+import android.support.customtabs.CustomTabsIntent
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -19,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-
+                recyclerView.smoothScrollToPosition(0)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
@@ -57,11 +60,22 @@ class MainActivity : AppCompatActivity() {
                             val post = document.toObject(Post::class.java)
                             postsList.add(post)
                         }
-                        adapter = ItemsAdapter(postsList)
-                        recyclerView.adapter = adapter
+                        setData(postsList)
+
                     } else {
                         Log.w("NEWS", "Error getting documents.", task.exception)
                     }
                 }
+    }
+
+    private fun setData(postsList: MutableList<Post>) {
+        adapter = ItemsAdapter(postsList) {
+            val url = it.url
+            val builder = CustomTabsIntent.Builder()
+            builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+            val customTabsIntent = builder.build()
+            customTabsIntent.launchUrl(this, Uri.parse(url))
+        }
+        recyclerView.adapter = adapter
     }
 }
