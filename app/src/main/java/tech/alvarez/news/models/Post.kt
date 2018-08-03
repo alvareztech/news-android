@@ -9,4 +9,5 @@ class Post {
     var url: String? = null
     var date: Date = Date()
     var image: String? = null
+    var source: String = ""
 }

@@ -1,13 +1,11 @@
 package tech.alvarez.news.adapters
 
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_post.view.*
-import tech.alvarez.news.R
-import tech.alvarez.news.formatTimeDefaults
-import tech.alvarez.news.inflate
-import tech.alvarez.news.loadUrl
+import tech.alvarez.news.*
 import tech.alvarez.news.models.Post
 
 class ItemsAdapter(val items: MutableList<Post>, val listener: (Post) -> Unit) : RecyclerView.Adapter<ItemsAdapter.PostViewHolder>() {
@@ -27,10 +25,20 @@ class ItemsAdapter(val items: MutableList<Post>, val listener: (Post) -> Unit) :
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(post: Post, listener: (Post) -> Unit) = with(itemView) {
-            photoImageView.loadUrl(post.image)
+            if (TextUtils.isEmpty(post.image)) {
+                photoCardView.gone()
+            } else {
+                photoCardView.visible()
+                photoImageView.loadUrl(post.image)
+            }
             titleTextView.text = post.title
             summaryTextView.text = post.summary
             dateTextView.text = post.date.formatTimeDefaults()
+            if (post.source == "lostiempos.com") {
+                sourceImageView.setImageResource(R.drawable.lostiemposcom)
+            } else {
+                sourceImageView.setImageResource(R.drawable.paginasietebo)
+            }
             setOnClickListener { listener(post) }
         }
     }
