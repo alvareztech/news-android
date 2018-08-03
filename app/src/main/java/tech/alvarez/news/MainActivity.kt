@@ -1,6 +1,12 @@
 package tech.alvarez.news
 
+import android.annotation.TargetApi
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.VectorDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
 import android.support.design.widget.BottomNavigationView
@@ -13,6 +19,7 @@ import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_main.*
 import tech.alvarez.news.adapters.ItemsAdapter
 import tech.alvarez.news.models.Post
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -72,10 +79,34 @@ class MainActivity : AppCompatActivity() {
         adapter = ItemsAdapter(postsList) {
             val url = it.url
             val builder = CustomTabsIntent.Builder()
+            builder.setShowTitle(true)
             builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+            builder.setCloseButtonIcon(bitmapFromDrawable(R.drawable.ic_arrow_back))
+            builder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left)
+            builder.setExitAnimations(this, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
             val customTabsIntent = builder.build()
             customTabsIntent.launchUrl(this, Uri.parse(url))
         }
         recyclerView.adapter = adapter
+    }
+
+    private fun bitmapFromDrawable(drawableId: Int): Bitmap {
+        val drawable = ContextCompat.getDrawable(applicationContext, drawableId)
+        return if (drawable is BitmapDrawable) {
+            drawable.bitmap
+        } else if (drawable is VectorDrawable) {
+            bitmapFromVectorDrawable((drawable as VectorDrawable?)!!)
+        } else {
+            throw IllegalArgumentException("Unable to convert to bitmap")
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun bitmapFromVectorDrawable(vectorDrawable: VectorDrawable): Bitmap {
+        val bitmap = Bitmap.createBitmap(vectorDrawable.intrinsicWidth, vectorDrawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        vectorDrawable.setBounds(0, 0, canvas.width, canvas.height)
+        vectorDrawable.draw(canvas)
+        return bitmap
     }
 }
