@@ -1,9 +1,9 @@
 package tech.alvarez.news.adapters
 
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_post.view.*
 import tech.alvarez.news.*
 import tech.alvarez.news.models.Post
@@ -20,7 +20,6 @@ class ItemsAdapter(val items: MutableList<Post>, val listener: (Post) -> Unit) :
         items.clear()
         notifyDataSetChanged()
     }
-
 
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

@@ -10,5 +10,4 @@
 .externalNativeBuild
 
 /.idea/
-gradle.properties
 google-services.json
