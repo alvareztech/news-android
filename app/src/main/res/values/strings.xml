@@ -3,4 +3,10 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="national">Nacional</string>
+    <string name="sports">Deportes</string>
+    <string name="world">Mundo</string>
+    <string name="entertainment">Entretenimiento</string>
+    <string name="health">Salud</string>
+    <string name="technology">Tecnología</string>
 </resources>

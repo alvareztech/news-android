@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="@string/national"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="@string/sports"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="@string/world"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="@string/entertainment"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="@string/health"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="@string/technology"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="@string/national"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="@string/sports"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="@string/world"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="@string/entertainment"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="@string/health"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="@string/technology"
+        app:showAsAction="ifRoom" />
+
+
+</menu>
