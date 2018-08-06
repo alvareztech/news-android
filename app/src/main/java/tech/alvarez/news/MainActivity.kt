@@ -15,13 +15,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_main.*
 import tech.alvarez.news.adapters.ItemsAdapter
 import tech.alvarez.news.models.Post
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -109,6 +107,9 @@ class MainActivity : AppCompatActivity() {
             android.R.id.home -> {
                 val bottomNavDrawerFragment = BottomNavigationDrawerFragment()
                 bottomNavDrawerFragment.show(supportFragmentManager, bottomNavDrawerFragment.tag)
+            }
+            R.id.goTopItem -> {
+                recyclerView.smoothScrollToPosition(0)
             }
         }
         return true

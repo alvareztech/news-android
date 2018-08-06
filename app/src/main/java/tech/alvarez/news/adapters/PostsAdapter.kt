@@ -35,6 +35,8 @@ class ItemsAdapter(val items: MutableList<Post>, val listener: (Post) -> Unit) :
             dateTextView.text = post.date.formatTimeDefaults()
             if (post.source == "lostiempos.com") {
                 sourceImageView.setImageResource(R.drawable.lostiemposcom)
+            } else if (post.source == "la-razon.com") {
+                sourceImageView.setImageResource(R.drawable.larazoncom)
             } else {
                 sourceImageView.setImageResource(R.drawable.paginasietebo)
             }

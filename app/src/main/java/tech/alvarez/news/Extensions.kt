@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.bottomappbar.BottomAppBar
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,7 +23,10 @@ fun ViewGroup.inflate(layoutRes: Int): View {
 }
 
 fun ImageView.loadUrl(url: String?) {
-    Glide.with(this).load(url).into(this);
+    Glide.with(this)
+            .load(url)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(this);
 }
 
 fun Date.formatTimeDefaults(): String {

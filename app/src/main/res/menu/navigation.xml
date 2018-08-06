@@ -15,9 +15,9 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications"
+        android:id="@+id/goTopItem"
+        android:icon="@drawable/ic_arrow_upward"
+        android:title="@string/go_top"
         app:showAsAction="ifRoom" />
 
 </menu>
