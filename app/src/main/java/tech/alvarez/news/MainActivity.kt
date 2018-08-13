@@ -36,18 +36,16 @@ class MainActivity : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        fab.setOnClickListener {
-            bar.toggleFabAlignment()
-        }
-
         getData()
     }
 
     private fun getData() {
+        loadView.visible()
         db.collection("posts")
                 .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener { task ->
+                    loadView.gone()
                     if (task.isSuccessful) {
                         val postsList = mutableListOf<Post>()
                         for (document in task.result) {
