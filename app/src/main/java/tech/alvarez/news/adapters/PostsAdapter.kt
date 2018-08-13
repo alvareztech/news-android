@@ -8,13 +8,20 @@ import kotlinx.android.synthetic.main.item_post.view.*
 import tech.alvarez.news.*
 import tech.alvarez.news.models.Post
 
-class ItemsAdapter(val items: MutableList<Post>, val listener: (Post) -> Unit) : RecyclerView.Adapter<ItemsAdapter.PostViewHolder>() {
+class ItemsAdapter(val listener: PostListener) : RecyclerView.Adapter<ItemsAdapter.PostViewHolder>() {
+
+    var items: MutableList<Post> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = PostViewHolder(parent.inflate(R.layout.item_post))
 
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) = holder.bind(items[position], listener)
+
+    fun setData(data: List<Post>) {
+        items = data.toMutableList();
+        notifyDataSetChanged()
+    }
 
     fun clear() {
         items.clear()
@@ -23,25 +30,32 @@ class ItemsAdapter(val items: MutableList<Post>, val listener: (Post) -> Unit) :
 
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(post: Post, listener: (Post) -> Unit) = with(itemView) {
-            if (TextUtils.isEmpty(post.image)) {
-                photoCardView.gone()
-            } else {
-                photoCardView.visible()
-                photoImageView.loadUrl(post.image)
+        fun bind(post: Post, listener: PostListener) {
+            with(itemView) {
+                if (TextUtils.isEmpty(post.image)) {
+                    photoCardView.gone()
+                } else {
+                    photoCardView.visible()
+                    photoImageView.loadUrl(post.image)
+                }
+                titleTextView.text = post.title
+                summaryTextView.text = post.summary
+                dateTextView.text = post.date.formatTimeDefaults()
+                if (post.source == "lostiemposcom") {
+                    sourceImageView.setImageResource(R.drawable.lostiemposcom)
+                } else if (post.source == "larazoncom") {
+                    sourceImageView.setImageResource(R.drawable.larazoncom)
+                } else {
+                    sourceImageView.setImageResource(R.drawable.paginasietebo)
+                }
             }
-            titleTextView.text = post.title
-            summaryTextView.text = post.summary
-            dateTextView.text = post.date.formatTimeDefaults()
-            if (post.source == "lostiemposcom") {
-                sourceImageView.setImageResource(R.drawable.lostiemposcom)
-            } else if (post.source == "larazoncom") {
-                sourceImageView.setImageResource(R.drawable.larazoncom)
-            } else {
-                sourceImageView.setImageResource(R.drawable.paginasietebo)
+            itemView.setOnClickListener {
+                listener.onSelected(post)
             }
-            setOnClickListener { listener(post) }
         }
     }
+}
 
+interface PostListener {
+    fun onSelected(post: Post)
 }

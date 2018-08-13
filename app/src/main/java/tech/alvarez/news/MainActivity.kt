@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
@@ -19,13 +20,15 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_main.*
 import tech.alvarez.news.adapters.ItemsAdapter
+import tech.alvarez.news.adapters.PostListener
 import tech.alvarez.news.models.Post
+import android.view.animation.AnimationUtils.loadLayoutAnimation
+import android.view.animation.LayoutAnimationController
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), PostListener {
 
     var db = FirebaseFirestore.getInstance()
-    var adapter: ItemsAdapter? = null
-
+    var adapter: ItemsAdapter = ItemsAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +38,10 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+
+        val animation = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_fall_down)
+        recyclerView.layoutAnimation = animation
 
         getData()
     }
@@ -61,18 +68,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setData(postsList: MutableList<Post>) {
-        adapter = ItemsAdapter(postsList) {
-            val url = it.url
-            val builder = CustomTabsIntent.Builder()
-            builder.setShowTitle(true)
-            builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
-            builder.setCloseButtonIcon(bitmapFromDrawable(R.drawable.ic_arrow_back))
-            builder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left)
-            builder.setExitAnimations(this, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-            val customTabsIntent = builder.build()
-            customTabsIntent.launchUrl(this, Uri.parse(url))
-        }
-        recyclerView.adapter = adapter
+        adapter.setData(postsList)
+        recyclerView.scheduleLayoutAnimation();
     }
 
     private fun bitmapFromDrawable(drawableId: Int): Bitmap {
@@ -111,5 +108,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return true
+    }
+
+    override fun onSelected(post: Post) {
+        val url = post.url
+        val builder = CustomTabsIntent.Builder()
+        builder.setShowTitle(true)
+        builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+        builder.setCloseButtonIcon(bitmapFromDrawable(R.drawable.ic_arrow_back))
+        builder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left)
+        builder.setExitAnimations(this, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+        val customTabsIntent = builder.build()
+        customTabsIntent.launchUrl(this, Uri.parse(url))
     }
 }
