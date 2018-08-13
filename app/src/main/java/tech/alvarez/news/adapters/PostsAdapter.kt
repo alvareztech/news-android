@@ -41,12 +41,12 @@ class ItemsAdapter(val listener: PostListener) : RecyclerView.Adapter<ItemsAdapt
                 titleTextView.text = post.title
                 summaryTextView.text = post.summary
                 dateTextView.text = post.date.formatTimeDefaults()
-                if (post.source == "lostiemposcom") {
-                    sourceImageView.setImageResource(R.drawable.lostiemposcom)
-                } else if (post.source == "larazoncom") {
-                    sourceImageView.setImageResource(R.drawable.larazoncom)
-                } else {
-                    sourceImageView.setImageResource(R.drawable.paginasietebo)
+
+                when (post.source) {
+                    Sources.LOS_TIEMPOS.value -> sourceImageView.setImageResource(Sources.LOS_TIEMPOS.logo)
+                    Sources.LA_RAZON.value -> sourceImageView.setImageResource(Sources.LA_RAZON.logo)
+                    Sources.PAGINA_SIETE.value -> sourceImageView.setImageResource(Sources.PAGINA_SIETE.logo)
+                    Sources.EL_DEBER.value -> sourceImageView.setImageResource(Sources.EL_DEBER.logo)
                 }
             }
             itemView.setOnClickListener {
