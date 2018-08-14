@@ -114,6 +114,7 @@ class MainActivity : AppCompatActivity(), PostListener {
         val url = post.url
         val builder = CustomTabsIntent.Builder()
         builder.setShowTitle(true)
+        builder.setSecondaryToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
         builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
         builder.setCloseButtonIcon(bitmapFromDrawable(R.drawable.ic_arrow_back))
         builder.setStartAnimations(this, R.anim.slide_in_right, R.anim.slide_out_left)
