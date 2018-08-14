@@ -50,15 +50,25 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:ignore="PrivateResource" />
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bar"
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/ic_filter_list" />
+
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="tech.alvarez.news.FilterFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        android:elevation="4dp"
-        app:fabAlignmentMode="center"
-        app:hideOnScroll="false"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:navigationIcon="@drawable/ic_menu_black" />
+        android:layout_marginBottom="4dp"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="48dp"
+        app:behavior_skipCollapsed="true"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        tools:layout="@layout/fragment_filter" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

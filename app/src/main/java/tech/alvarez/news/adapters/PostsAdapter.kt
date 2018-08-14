@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.item_post.view.*
 import tech.alvarez.news.*
 import tech.alvarez.news.models.Post
 
-class ItemsAdapter(val listener: PostListener) : RecyclerView.Adapter<ItemsAdapter.PostViewHolder>() {
+class ItemsAdapter(private val listener: PostListener) : RecyclerView.Adapter<ItemsAdapter.PostViewHolder>() {
 
     var items: MutableList<Post> = mutableListOf()
 

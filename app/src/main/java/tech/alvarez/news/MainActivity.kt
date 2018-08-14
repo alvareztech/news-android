@@ -22,8 +22,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import tech.alvarez.news.adapters.ItemsAdapter
 import tech.alvarez.news.adapters.PostListener
 import tech.alvarez.news.models.Post
-import android.view.animation.AnimationUtils.loadLayoutAnimation
-import android.view.animation.LayoutAnimationController
 
 class MainActivity : AppCompatActivity(), PostListener {
 
@@ -34,7 +32,7 @@ class MainActivity : AppCompatActivity(), PostListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setSupportActionBar(bar)
+//        setSupportActionBar(bar)
 
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
