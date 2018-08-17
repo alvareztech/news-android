@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
@@ -45,6 +46,23 @@ class MainActivity : AppCompatActivity(), PostListener {
         recyclerView.layoutAnimation = animation
 
         bottomSheetBehavior = BottomSheetBehavior.from(filterFragment.view)
+        bottomSheetBehavior.skipCollapsed = false
+        bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(view: View, slideOffset: Float) {
+
+            }
+
+            override fun onStateChanged(view: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                    fab.hide()
+                } else if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                    fab.show()
+                } else if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    fab.show()
+                }
+            }
+
+        })
 
         fab.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED

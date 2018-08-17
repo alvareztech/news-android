@@ -56,6 +56,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
+        app:fabSize="auto"
+        app:hoveredFocusedTranslationZ="0dp"
+        app:pressedTranslationZ="0dp"
         app:srcCompat="@drawable/ic_filter_list" />
 
     <fragment
