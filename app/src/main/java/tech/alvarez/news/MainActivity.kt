@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,6 +28,8 @@ class MainActivity : AppCompatActivity(), PostListener {
 
     var db = FirebaseFirestore.getInstance()
     var adapter: ItemsAdapter = ItemsAdapter(this)
+
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +43,12 @@ class MainActivity : AppCompatActivity(), PostListener {
 
         val animation = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_fall_down)
         recyclerView.layoutAnimation = animation
+
+        bottomSheetBehavior = BottomSheetBehavior.from(filterFragment.view)
+
+        fab.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
 
         getData()
     }

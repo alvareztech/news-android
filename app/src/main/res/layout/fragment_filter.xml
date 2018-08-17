@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_sheet"
+    android:elevation="8dp"
     tools:context=".FilterFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -23,6 +24,7 @@
         android:background="?selectableItemBackgroundBorderless"
         android:scaleType="center"
         android:tint="@color/primaryText"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/guide_peek_height"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -38,6 +40,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/filters"
+        android:textColor="@color/primaryText"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/guide_peek_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/resetButton"
         android:layout_width="wrap_content"
@@ -47,6 +61,7 @@
         android:paddingHorizontal="16dp"
         android:paddingVertical="0dp"
         android:text="@string/reset"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/guide_peek_height"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
